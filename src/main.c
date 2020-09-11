@@ -8,6 +8,8 @@
 #include <stdbool.h>
 #include "usart.h"
 #include "pin.h"
+#include "millis.h"
+#include "random.h"
 
 
 #define LED_PIN 13
@@ -24,10 +26,10 @@ void toggle_led()
 
 void loop()
 {
-    while(pin_read(BUTTON_PIN) == HIGH)
-    {
-        pin_write(LED_PIN, HIGH);
-    }
+    //while(pin_read(BUTTON_PIN) == HIGH)
+    //{
+    //    pin_write(LED_PIN, HIGH);
+    //}
 
     double delay_ms = 500;
 
@@ -39,14 +41,24 @@ void loop()
 
 int main()
 {
+
     uart_init(BAUD_CALC(115200));
     uart_puts("Init.\n");
+
+    millis_init();
 
     pin_mode(LED_PIN, pinmode_output);
     pin_mode(BUTTON_PIN, pinmode_input_pullup);
 
     while(1)
     {
+        //uart_putlong(millis());
+        //uart_puts("\n");
+
+        int rand = random_min_max(44,5298);
+        uart_putint(rand);
+        uart_puts("\n");
+
         loop();
     }
 }

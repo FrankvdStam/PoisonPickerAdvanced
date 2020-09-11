@@ -31,6 +31,8 @@ add_executable(
         src/main.c
         src/pin.c
         src/usart.c
+        src/millis.c
+        src/random.c
 )
 
 set_target_properties(

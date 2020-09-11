@@ -7,7 +7,9 @@
  *  This library is distributed under MIT license terms                             *
  ************************************************************************************/
 
+
 #include <avr/io.h> // for inline func
+#include "atmega328p.h"
 #include "usart_config.h"
 
 #ifndef F_CPU
