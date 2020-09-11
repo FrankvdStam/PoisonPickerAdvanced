@@ -20,7 +20,7 @@ set(AVR_OBJDUMP             avr-objdump)
 
 set(AVR_UPLOADTOOL          avrdude)
 set(AVR_UPLOADTOOL_PORT     usb)
-set(AVR_PROGRAMMER          avrispmkII)
+set(AVR_PROGRAMMER          atmel-ice)
 
 #========================================================================================
 #mcu
@@ -29,12 +29,14 @@ set(AVR_MCU atmega328p)
 add_executable(
         ${PROJECT_NAME}.elf
         src/main.c
+        src/pin.c
+        src/usart.c
 )
 
 set_target_properties(
         ${PROJECT_NAME}.elf
         PROPERTIES
-        COMPILE_FLAGS "-mmcu=${AVR_MCU}"
+        COMPILE_FLAGS "-mmcu=${AVR_MCU} -Wall -Wpedantic -O2"
         LINK_FLAGS "-mmcu=${AVR_MCU} -Wl,--gc-sections -mrelax"
 )
 
@@ -70,7 +72,8 @@ add_custom_command(
 #)
 
 add_custom_target(
-        build ALL
-        DEPENDS ${PROJECT_NAME}.hex)
+        build-hex ALL
+        DEPENDS ${PROJECT_NAME}.elf ${PROJECT_NAME}.hex
+)
 
 
