@@ -33,6 +33,7 @@ add_executable(
         src/usart.c
         src/millis.c
         src/random.c
+        src/ws2812.c
 )
 
 set_target_properties(
